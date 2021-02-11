@@ -1,4 +1,4 @@
 export interface Cats{
-    id: number ;
+    id: number;
     name: string;
 }
