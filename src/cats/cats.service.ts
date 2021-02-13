@@ -23,11 +23,7 @@ export class CatsService {
     }
 
     async createCats(createCatsDto: CreateCatsDto) {
-        const { name } = createCatsDto;
-        const cat = new Cat();
-        cat.name = name;
-        await cat.save();
-        return cat;
+        return this.catsRepository.createCats(createCatsDto);
     }
 
 
