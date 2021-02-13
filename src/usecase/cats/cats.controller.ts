@@ -1,7 +1,10 @@
-import { Body, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
+import { UsePipes } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
+import { Cat } from 'src/cats/cats.entity';
 import { Cats } from 'src/cats/cats.model';
 import { CatsService } from '../../cats/cats.service';
+import { CreateCatsDto } from '../../cats/dto/create-cats.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -19,13 +22,9 @@ export class CatsController {
         return this.catsService.getCatsById(id);
     }
 
-    // @Get()
-    // findAll(): String {
-    //     return 'This action returns all cats';
-    // }
-
     @Post()
-    createCats(@Body() body) {
-        console.log('body',body);
+    @UsePipes(ValidationPipe)
+    createCats(@Body() createCatsDto: CreateCatsDto): Promise<Cats> {
+        return this.catsService.createCats(createCatsDto);
     }
 }

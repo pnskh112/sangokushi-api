@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Cats } from "dist/cats/cats.model";
 import { CatsRepository } from '../repository/cats.repository';
 import { Cat } from './cats.entity';
+import { CreateCatsDto } from './dto/create-cats.dto';
 
 @Injectable()
 export class CatsService {
@@ -15,17 +16,22 @@ export class CatsService {
 
     async getCatsById(id: number): Promise<Cat> {
         const found = await this.catsRepository.findOne(id);
-
         if (!found) {
             throw new NotFoundException(`Cat with ID ${id} not found`);
         }
-
         return found;
     }
 
+    async createCats(createCatsDto: CreateCatsDto) {
+        const { name } = createCatsDto;
+        const cat = new Cat();
+        cat.name = name;
+        await cat.save();
+        return cat;
+    }
 
 
-    getAllCats(): Cats[] {
+    getAllCats(): Cat[] {
         return this.cats;
     }
 }
