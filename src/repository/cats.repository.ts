@@ -11,5 +11,10 @@ export class CatsRepository extends Repository<Cat> {
         await cat.save();
         return cat;
     }
+
+    async deleteCats(): Promise<Cat> {
+        const cat = new Cat();
+        return cat;
+    }
 }
 
