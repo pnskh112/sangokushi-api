@@ -1,4 +1,4 @@
-import { Body, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Delete, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
 import { UsePipes } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
 import { Cat } from 'src/cats/cats.entity';
@@ -26,5 +26,13 @@ export class CatsController {
     @UsePipes(ValidationPipe)
     createCats(@Body() createCatsDto: CreateCatsDto): Promise<Cats> {
         return this.catsService.createCats(createCatsDto);
+    }
+
+    @Delete('/:id')
+    async deleteCatsById(
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<Cat["id"]> {
+        const cat = await this.catsService.deleteCats(id);
+        return cat["id"];
     }
 }

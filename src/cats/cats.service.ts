@@ -22,10 +22,19 @@ export class CatsService {
         return found;
     }
 
-    async createCats(createCatsDto: CreateCatsDto) {
+    async createCats(createCatsDto: CreateCatsDto): Promise<Cat> {
         return this.catsRepository.createCats(createCatsDto);
     }
 
+    async deleteCats(id: number): Promise<object> {
+        const cat = await this.catsRepository.findOne(id);
+        console.log("cat",cat);
+        if (!cat.remove()) {
+            throw new NotFoundException(`Cat with ID ${id} not found`);
+        };
+        console.log("service_cat",cat);
+        return cat;
+    }
 
     getAllCats(): Cat[] {
         return this.cats;
