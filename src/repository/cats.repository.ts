@@ -1,6 +1,6 @@
-import { Cat } from 'src/cats/cats.entity';
 import { Entity, EntityManager, EntityRepository, QueryFailedError, Repository } from 'typeorm';
 import { CreateCatsDto } from '../cats/dto/create-cats.dto';
+import { Cat } from './dao/cats.entity';
 
 @EntityRepository(Cat)
 export class CatsRepository extends Repository<Cat> {

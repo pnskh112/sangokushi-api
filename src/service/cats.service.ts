@@ -3,8 +3,8 @@ import { NotFoundException } from "@nestjs/common/exceptions";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Cats } from "dist/cats/cats.model";
 import { CatsRepository } from '../repository/cats.repository';
-import { Cat } from './cats.entity';
-import { CreateCatsDto } from './dto/create-cats.dto';
+import { CreateCatsDto } from '../cats/dto/create-cats.dto';
+import { Cat } from "src/repository/dao/cats.entity";
 
 @Injectable()
 export class CatsService {
@@ -28,13 +28,20 @@ export class CatsService {
 
     async deleteCats(id: number): Promise<object> {
         const cat = await this.catsRepository.findOne(id);
-        console.log("cat",cat);
         if (!cat.remove()) {
             throw new NotFoundException(`Cat with ID ${id} not found`);
         };
-        console.log("service_cat",cat);
         return cat;
     }
+
+    async updateCatsName(id: number , name: string) {
+        const cat = await this.getCatsById(id);
+        cat.name = name;
+        cat.save();
+        return cat;
+    }
+
+
 
     getAllCats(): Cat[] {
         return this.cats;
