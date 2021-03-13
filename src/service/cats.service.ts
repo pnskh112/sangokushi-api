@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { NotFoundException } from "@nestjs/common/exceptions";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CatsRepository } from '../domain/repository/cats.repository';
 import { CreateCatsDto } from '../cats/dto/create-cats.dto';
 import { Cat } from "src/domain/entity/cats.entity";
 import { GetCatsFilterDto } from '../cats/dto/get-cats-filter.dto';
 import { Cats } from "src/cats/cats.model";
+import { NotFoundException } from "src/domain/exception/notFound.exception";
 
 @Injectable()
 export class CatsService {
@@ -18,7 +18,8 @@ export class CatsService {
     async getCatsById(id: number): Promise<Cat> {
         const found = await this.catsRepository.findOne(id);
         if (!found) {
-            throw new NotFoundException(`Cat with ID ${id} not found`);
+            throw new NotFoundException()
+            // throw new NotFoundException(`Cat with ID ${id} not found`);
         }
         return found;
     }
