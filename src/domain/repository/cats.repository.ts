@@ -8,25 +8,13 @@ export class CatsRepository extends Repository<Cat> {
 
     async getCats(filterDto: GetCatsFilterDto): Promise<Cat[]> {
         const {id, name } = filterDto;
-        const query = this.createQueryBuilder('cat');
-
-        if (id) {
-            query.andWhere('cat.id = :id', { id });
-        }
-
-        if (name) {
-            query.andWhere('cat.name LIKE :name', { name: `%${name}%` });
-        }
-
-        const cats = await query.getMany();
+        const cats = await new Cat().getCats({id, name });
         return cats;
     }
 
     async createCats(createCatsDto: CreateCatsDto): Promise<Cat> {
         const { name } = createCatsDto;
-        const cat = new Cat();
-        cat.name = name;
-        await cat.save();
+        const cat = await new Cat().createCats({name});
         return cat;
     }
 
