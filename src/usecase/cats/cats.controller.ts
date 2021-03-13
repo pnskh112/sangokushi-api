@@ -3,7 +3,7 @@ import { UsePipes } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
 import { Cats } from 'src/cats/cats.model';
 import { GetCatsFilterDto } from 'src/cats/dto/get-cats-filter.dto';
-import { Cat } from 'src/domain/entity/cats.entity';
+import { Cat } from 'src/domain/cat.domain';
 import { CatsService } from 'src/service/cats.service';
 import { CreateCatsDto } from '../../cats/dto/create-cats.dto';
 
@@ -11,41 +11,41 @@ import { CreateCatsDto } from '../../cats/dto/create-cats.dto';
 export class CatsController {
     constructor(private catsService: CatsService) {}
 
-    @Get()
-    getCats(
-        @Query(ValidationPipe) filterDto: GetCatsFilterDto
-    ): Promise<Cats[]> {
-        return this.catsService.getAllCats(filterDto);
-    }
+    // @Get()
+    // getCats(
+    //     @Query(ValidationPipe) filterDto: GetCatsFilterDto
+    // ): Promise<Cats[]> {
+    //     return this.catsService.getAllCats(filterDto);
+    // }
 
-    @Get('/:id')
-    getCatsById(
-        @Param('id', ParseIntPipe) id: number
-    ): Promise<Cats> {
-        return this.catsService.getCatsById(id);
-    }
+    // @Get('/:id')
+    // getCatsById(
+    //     @Param('id', ParseIntPipe) id: number
+    // ): Promise<Cats> {
+    //     return this.catsService.getCatsById(id);
+    // }
 
     @Post()
     @UsePipes(ValidationPipe)
     createCats(
         @Body() createCatsDto: CreateCatsDto
-    ): Promise<Cats> {
+    ): Promise<Cat> {
         return this.catsService.createCats(createCatsDto);
     }
 
-    @Delete('/:id')
-    async deleteCatsById(
-        @Param('id', ParseIntPipe) id: number
-    ): Promise<Cat["id"]> {
-        const cat = await this.catsService.deleteCats(id);
-        return cat["id"];
-    }
+    // @Delete('/:id')
+    // async deleteCatsById(
+    //     @Param('id', ParseIntPipe) id: number
+    // ): Promise<Cats["id"]> {
+    //     const cat = await this.catsService.deleteCats(id);
+    //     return cat["id"];
+    // }
 
-    @Put('/:id')
-    updateCatName(
-        @Param('id',ParseIntPipe) id:number,
-        @Body('name') name:string,
-    ): Promise<Cat> {
-        return this.catsService.updateCatsName(id,name);
-    }
+    // @Put('/:id')
+    // updateCatName(
+    //     @Param('id',ParseIntPipe) id:number,
+    //     @Body('name') name:string,
+    // ): Promise<Cats> {
+    //     return this.catsService.updateCatsName(id,name);
+    // }
 }
