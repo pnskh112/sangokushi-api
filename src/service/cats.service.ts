@@ -13,13 +13,12 @@ export class CatsService {
         @InjectRepository(CatsRepository)
         private catsRepository: CatsRepository,
     ) {}
-    private cats: Cats[] = [];
+    // private cats: Cats[] = [];
 
     async getCatsById(id: number): Promise<Cat> {
         const found = await this.catsRepository.findOne(id);
         if (!found) {
-            throw new NotFoundException()
-            // throw new NotFoundException(`Cat with ID ${id} not found`);
+            throw new NotFoundException(`Cat with ID ${id} not found`)
         }
         return found;
     }
