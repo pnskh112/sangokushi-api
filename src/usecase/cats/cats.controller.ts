@@ -11,16 +11,17 @@ import { CreateCatsDto } from '../../cats/dto/create-cats.dto';
 export class CatsController {
     constructor(private catsService: CatsService) {}
 
-    @Get()
-    getCats(
-        @Query(ValidationPipe) filterDto: GetCatsFilterDto
-    ): Promise<Cats[]> {
-        return this.catsService.getAllCats(filterDto);
+    @Put('/:id')
+    updateCatName(
+        @Param('id', ParseIntPipe) id: number,
+        @Body('name') name:string,
+    ): Promise<Cat> {
+        return this.catsService.updateCatsName(id,name);
     }
 
     @Get('/:id')
     getCatsById(
-        @Param('id', ParseIntPipe) id: number
+        @Param('id',ParseIntPipe) id: number
     ): Promise<Cats> {
         return this.catsService.getCatsById(id);
     }
@@ -41,11 +42,11 @@ export class CatsController {
         return cat["id"];
     }
 
-    @Put('/:id')
-    updateCatName(
-        @Param('id',ParseIntPipe) id:number,
-        @Body('name') name:string,
-    ): Promise<Cat> {
-        return this.catsService.updateCatsName(id,name);
+    @Get()
+    getCats(
+        @Query(ValidationPipe) filterDto: GetCatsFilterDto
+    ): Promise<Cats[]> {
+        return this.catsService.getAllCats(filterDto);
     }
+
 }

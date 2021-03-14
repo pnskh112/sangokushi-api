@@ -7,7 +7,7 @@ import { GetCatsFilterDto } from '../../cats/dto/get-cats-filter.dto';
 export class CatsRepository extends Repository<Cat> {
 
     async getCats(filterDto: GetCatsFilterDto): Promise<Cat[]> {
-        const {id, name } = filterDto;
+        const { id, name } = filterDto;
         const cats = await new Cat().getCats({id, name });
         return cats;
     }
