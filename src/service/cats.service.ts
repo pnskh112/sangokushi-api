@@ -1,10 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CatsRepository } from '../domain/repository/cats.repository';
-import { CreateCatsDto } from '../cats/dto/create-cats.dto';
+import { CreateCatsDto } from '../dto/cats/create-cats.dto';
 import { Cat } from "src/domain/entity/cats.entity";
-import { GetCatsFilterDto } from '../cats/dto/get-cats-filter.dto';
-import { Cats } from "src/cats/cats.model";
+import { GetCatsFilterDto } from '../dto/cats/get-cats-filter.dto';
 import { NotFoundException } from "src/domain/exception/notFound.exception";
 
 @Injectable()
