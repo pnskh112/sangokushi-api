@@ -1,11 +1,10 @@
 import { Body, Delete, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { UsePipes } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
-import { Cats } from 'src/cats/cats.model';
-import { GetCatsFilterDto } from 'src/cats/dto/get-cats-filter.dto';
+import { GetCatsFilterDto } from 'src/dto/cats/get-cats-filter.dto';
 import { Cat } from 'src/domain/entity/cats.entity';
 import { CatsService } from 'src/service/cats.service';
-import { CreateCatsDto } from '../../cats/dto/create-cats.dto';
+import { CreateCatsDto } from '../../dto/cats/create-cats.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -22,7 +21,7 @@ export class CatsController {
     @Get('/:id')
     getCatsById(
         @Param('id',ParseIntPipe) id: number
-    ): Promise<Cats> {
+    ): Promise<Cat> {
         return this.catsService.getCatsById(id);
     }
 
@@ -30,7 +29,7 @@ export class CatsController {
     @UsePipes(ValidationPipe)
     createCats(
         @Body() createCatsDto: CreateCatsDto
-    ): Promise<Cats> {
+    ): Promise<Cat> {
         return this.catsService.createCats(createCatsDto);
     }
 
@@ -45,7 +44,7 @@ export class CatsController {
     @Get()
     getCats(
         @Query(ValidationPipe) filterDto: GetCatsFilterDto
-    ): Promise<Cats[]> {
+    ): Promise<Cat[]> {
         return this.catsService.getAllCats(filterDto);
     }
 

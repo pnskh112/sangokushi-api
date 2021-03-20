@@ -1,4 +1,4 @@
-import { GetCatsFilterDto } from "src/cats/dto/get-cats-filter.dto";
+import { GetCatsFilterDto } from "src/dto/cats/get-cats-filter.dto";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

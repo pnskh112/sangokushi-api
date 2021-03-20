@@ -1,7 +1,7 @@
 import { Entity, EntityManager, EntityRepository, QueryFailedError, Repository } from 'typeorm';
-import { CreateCatsDto } from '../../cats/dto/create-cats.dto';
+import { CreateCatsDto } from '../../dto/cats/create-cats.dto';
 import { Cat } from '../entity/cats.entity';
-import { GetCatsFilterDto } from '../../cats/dto/get-cats-filter.dto';
+import { GetCatsFilterDto } from '../../dto/cats/get-cats-filter.dto';
 
 @EntityRepository(Cat)
 export class CatsRepository extends Repository<Cat> {
