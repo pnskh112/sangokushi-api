@@ -1,8 +1,16 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCatsDto {
 
     id: number;
-    @IsNotEmpty()
+
     name: string;
+
+    private constructor(
+        name: string,
+    ) {
+        this.name = name;
+    }
 }
+
+
