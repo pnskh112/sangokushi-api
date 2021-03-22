@@ -21,9 +21,9 @@ export class WarloadsService {
         return found;
     }
 
-    // async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
-    //     return this.warloadsRepository.createWarloads(createWarloadsDto);
-    // }
+    async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
+        return this.warloadsRepository.createWarloads(createWarloadsDto);
+    }
 
     async deleteWarloads(id: number): Promise<object> {
         const warload = await this.warloadsRepository.findOne(id);
@@ -40,7 +40,7 @@ export class WarloadsService {
         return warload;
     }
 
-    getAllWarloads(filterDto: GetWarloadsFilterDto): Promise<Warloads[]> {
-        return this.warloadsRepository.getWarloads(filterDto); 
-    }
+    // getAllWarloads(filterDto: GetWarloadsFilterDto): Promise<Warloads[]> {
+    //     return this.warloadsRepository.getWarloads(filterDto); 
+    // }
 }

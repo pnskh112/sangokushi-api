@@ -3,12 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CatsModule } from './module/cats.module';
 import { typeOrmConfig } from './config/typeorm.config';
 import { KingdomsModule } from './module/kingdoms.module';
+import { WarloadsModule } from './module/warloads.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     CatsModule,
-    KingdomsModule
+    KingdomsModule,
+    WarloadsModule,
   ],
 })
 export class AppModule {}

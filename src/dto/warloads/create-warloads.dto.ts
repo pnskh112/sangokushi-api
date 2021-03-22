@@ -11,7 +11,6 @@ export class CreateWarloadsDto {
     @IsNotEmpty()
     azana: string;
 
-    
     /*人物像*/
     statue: string;
 

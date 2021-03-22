@@ -29,18 +29,18 @@ export class Warloads extends BaseEntity {
     arms: Arms[];
     static arms: any;
 
-    async getWarloads(getParams): Promise<Warloads[]> {
-        const { id, name } = getParams;
-        const query = Warloads.createQueryBuilder('Warloads');
-        if (id) {
-            query.andWhere('Warloads.id = :id', { id });
-        }
-        if (name) {
-            query.andWhere('Warloads.name LIKE :name', { name: `%${name}%` });
-        }
-        const warloads = await query.getMany();
-        return warloads;
-    }
+    // async getWarloads(getParams): Promise<Warloads[]> {
+    //     const { id, name } = getParams;
+    //     const query = Warloads.createQueryBuilder('Warloads');
+    //     if (id) {
+    //         query.andWhere('Warloads.id = :id', { id });
+    //     }
+    //     if (name) {
+    //         query.andWhere('Warloads.name LIKE :name', { name: `%${name}%` });
+    //     }
+    //     const warloads = await query.getMany();
+    //     return warloads;
+    // }
 
     async createWarloads(createParam): Promise<Warloads> {
         const {
@@ -53,9 +53,9 @@ export class Warloads extends BaseEntity {
         const warloads = await Warloads.query(
             `
                 INSERT INTO Warloads
-                    ("name","text")
+                    ("name","azana","statue","hobby","fromTo")
                 VALUES
-                    ($1,$2)
+                    ($1,$2,$3,$4,$5)
                 RETURNING "id" AS id;
             `,
             [
@@ -66,6 +66,6 @@ export class Warloads extends BaseEntity {
                 createParam.fromTo,
             ],
         );
-        return Warloads[0];
+        return warloads[0];
     }
 }

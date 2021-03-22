@@ -26,14 +26,13 @@ export class WarloadsController {
         return this.WarloadsService.getWarloadsById(id);
     }
 
-    // @Post('kingdoms/:id/warloads')
-    // @UsePipes(ValidationPipe)
-    // createWarloads(
-    //     @Param('id',ParseIntPipe) id: number,
-    //     @Body() createWarloadsDto: CreateWarloadsDto
-    // ): Promise<Warloads> {
-    //     return this.WarloadsService.createWarloads(createWarloadsDto);
-    // }
+    @Post()
+    @UsePipes(ValidationPipe)
+    createWarloads(
+        @Body() createWarloadsDto: CreateWarloadsDto
+    ): Promise<Warloads> {
+        return this.WarloadsService.createWarloads(createWarloadsDto);
+    }
 
     @Delete('/:id')
     async deleteWarloadsById(
@@ -43,11 +42,11 @@ export class WarloadsController {
         return Warload["id"];
     }
 
-    @Get()
-    getWarloads(
-        @Query(ValidationPipe) filterDto: GetWarloadsFilterDto
-    ): Promise<Warloads[]> {
-        return this.WarloadsService.getAllWarloads(filterDto);
-    }
+    // @Get()
+    // getWarloads(
+    //     @Query(ValidationPipe) filterDto: GetWarloadsFilterDto
+    // ): Promise<Warloads[]> {
+    //     return this.WarloadsService.getAllWarloads(filterDto);
+    // }
 
 }
