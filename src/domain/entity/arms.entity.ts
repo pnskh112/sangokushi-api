@@ -1,12 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn,ManyToOne } from "typeorm";
+import { Warload } from 'src/domain/entity/Warloads.entity';
 
 @Entity()
-export class Arms extends BaseEntity {
+export class Arm extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
+    @ManyToOne(type => Warload, warload => warload.arms)
     warloadsId: number;
 
     @Column()
@@ -15,9 +17,9 @@ export class Arms extends BaseEntity {
     @Column()
     text: string;
 
-    async getArms(getParams): Promise<Arms[]> {
+    async getArms(getParams): Promise<Arm[]> {
         const {id, name } = getParams;
-        const query = Arms.createQueryBuilder('Arms');
+        const query = Arm.createQueryBuilder('Arms');
         if (id) {
             query.andWhere('Arms.id = :id', { id });
         }
@@ -28,17 +30,26 @@ export class Arms extends BaseEntity {
         return arms;
     }
 
-    async createArms(createParam): Promise<Arms> {
-        const { name,text } = createParam;
-        const arms = await Arms.query(
+    async createArms(createParam): Promise<Arm> {
+        console.log("createParam",createParam);
+        const { 
+            warloadsId,
+            name,
+            text 
+        } = createParam.arms[0];
+        const arms = await Arm.query(
             `
-                INSERT INTO Arms
-                    ("name","text")
+                INSERT INTO Arm
+                    ("warloadsId","name","text")
                 VALUES
-                    ($1,$2)
+                    ($1,$2,$3)
                 RETURNING "id" AS id;
             `,
-            [createParam.name,createParam.text],
+            [
+                warloadsId,
+                name,
+                text,
+            ],
         );
         return arms[0];
     }

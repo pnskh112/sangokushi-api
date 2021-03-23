@@ -1,9 +1,9 @@
 import { GetWarloadsFilterDto } from "src/dto/Warloads/get-Warloads-filter.dto";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Arms } from "./arms.entity";
+import { Arm } from "./arms.entity";
 
 @Entity()
-export class Warloads extends BaseEntity {
+export class Warload extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     /*武将コード*/
@@ -25,9 +25,8 @@ export class Warloads extends BaseEntity {
     @Column()
     fromTo : string;
 
-    @OneToMany(type => Arms, arms => Warloads.arms)
-    arms: Arms[];
-    static arms: any;
+    @OneToMany(type => Arm, arms => arms.warloadsId)
+    arms: Arm[];
 
     // async getWarloads(getParams): Promise<Warloads[]> {
     //     const { id, name } = getParams;
@@ -42,7 +41,7 @@ export class Warloads extends BaseEntity {
     //     return warloads;
     // }
 
-    async createWarloads(createParam): Promise<Warloads> {
+    async createWarloads(createParam): Promise<Warload> {
         const {
             name,
             azana,
@@ -50,9 +49,10 @@ export class Warloads extends BaseEntity {
             hobby,
             fromTo
         } = createParam;
-        const warloads = await Warloads.query(
+        console.log("warloads.entity.ts");
+        const warloads = await Warload.query(
             `
-                INSERT INTO Warloads
+                INSERT INTO warloads
                     ("name","azana","statue","hobby","fromTo")
                 VALUES
                     ($1,$2,$3,$4,$5)
@@ -66,6 +66,7 @@ export class Warloads extends BaseEntity {
                 createParam.fromTo,
             ],
         );
+        console.log("warloads.entity.ts end");
         return warloads[0];
     }
 }

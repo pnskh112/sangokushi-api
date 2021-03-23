@@ -1,10 +1,11 @@
 import { Entity, EntityManager, EntityRepository, QueryFailedError, Repository } from 'typeorm';
 import { CreateWarloadsDto } from '../../dto/Warloads/create-Warloads.dto';
 import { GetWarloadsFilterDto } from '../../dto/Warloads/get-Warloads-filter.dto';
-import { Warloads } from '../entity/Warloads.entity';
+import { Warload } from '../entity/Warloads.entity';
+import { Arm } from '../entity/arms.entity';
 
-@EntityRepository(Warloads)
-export class WarloadsRepository extends Repository<Warloads> {
+@EntityRepository(Warload)
+export class WarloadsRepository extends Repository<Warload> {
 
     // async getWarloads(filterDto: GetWarloadsFilterDto): Promise<Warloads[]> {
     //     const { id, name } = filterDto;
@@ -12,7 +13,10 @@ export class WarloadsRepository extends Repository<Warloads> {
     //     return warloads;
     // }
 
-    async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
+    async createWarloads(
+        id: number,
+        createWarloadsDto: CreateWarloadsDto
+    ): Promise<Warload> {
         const { 
             name,
             azana,
@@ -21,7 +25,7 @@ export class WarloadsRepository extends Repository<Warloads> {
             fromTo,
             arms,
         } = createWarloadsDto;
-        const warloads = await new Warloads().createWarloads(
+        const warloads = await new Warload().createWarloads(
             {
                 name,
                 azana,
@@ -30,12 +34,18 @@ export class WarloadsRepository extends Repository<Warloads> {
                 fromTo,
                 arms,
             });
+            if(arms !== undefined){
+                console.log("arms",arms);
+                const arm = await new Arm().createArms({
+                    arms,                    
+                })
+            }
         return warloads;
     }
 
-    async deleteWarloads(): Promise<Warloads> {
-        const warloads = new Warloads();
-        return warloads;
+    async deleteWarloads(): Promise<Warload> {
+        const warload = new Warload();
+        return warload;
     }
 }
 
