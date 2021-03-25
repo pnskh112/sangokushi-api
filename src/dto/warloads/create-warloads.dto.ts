@@ -21,6 +21,6 @@ export class CreateWarloadsDto {
     fromTo : string;
 
 
-    arms: CreateArmsDto[];
+    arms: any[];
 
 }
