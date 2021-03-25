@@ -7,7 +7,7 @@ import { CreateWarloadsDto } from 'src/dto/Warloads/create-Warloads.dto';
 import { GetWarloadsFilterDto } from 'src/dto/Warloads/get-Warloads-filter.dto';
 
 
-@Controller('warloads')
+@Controller('kingdoms/1/warloads')
 export class WarloadsController {
     constructor(private WarloadsService: WarloadsService) {}
 

@@ -1,6 +1,7 @@
 import { Entity, EntityManager, EntityRepository, QueryFailedError, Repository } from 'typeorm';
 import { CreateWarloadsDto } from '../../dto/Warloads/create-Warloads.dto';
 import { GetWarloadsFilterDto } from '../../dto/Warloads/get-Warloads-filter.dto';
+import { Arm } from '../entity/arms.entity';
 import { Warloads } from '../entity/Warloads.entity';
 
 @EntityRepository(Warloads)
@@ -19,8 +20,8 @@ export class WarloadsRepository extends Repository<Warloads> {
             statue,
             hobby,
             fromTo,
-            arms,
         } = createWarloadsDto;
+        const arm = createWarloadsDto.arms;
         const warloads = await new Warloads().createWarloads(
             {
                 name,
@@ -28,8 +29,8 @@ export class WarloadsRepository extends Repository<Warloads> {
                 statue,
                 hobby,
                 fromTo,
-                arms,
             });
+        const arms = await new Arm().createArms({arm});
         return warloads;
     }
 
