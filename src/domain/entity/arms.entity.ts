@@ -37,7 +37,7 @@ export class Arm extends BaseEntity {
                     ("warloadsId","name","text")
                 VALUES
                     ($1,$2,$3)
-                RETURNING "id","warloadsId","name","text" AS newRecord;
+                RETURNING *;
             `,
             [warloadsId,name,text],
         );

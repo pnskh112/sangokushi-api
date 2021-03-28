@@ -5,9 +5,11 @@ import { Warloads } from 'src/domain/entity/Warloads.entity';
 import { WarloadsService } from 'src/service/Warloads.service';
 import { CreateWarloadsDto } from 'src/dto/Warloads/create-Warloads.dto';
 import { GetWarloadsFilterDto } from 'src/dto/Warloads/get-Warloads-filter.dto';
+import { UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 
-@Controller('kingdoms/1/warloads')
+@Controller('kingdoms')
 export class WarloadsController {
     constructor(private WarloadsService: WarloadsService) {}
 
@@ -26,9 +28,10 @@ export class WarloadsController {
         return this.WarloadsService.getWarloadsById(id);
     }
 
-    @Post()
+    @Post('/:kingdoms_id/warloads')
     @UsePipes(ValidationPipe)
     createWarloads(
+        @Param('kingdoms_id', ParseIntPipe) id: number,
         @Body() createWarloadsDto: CreateWarloadsDto
     ): Promise<Warloads> {
         return this.WarloadsService.createWarloads(createWarloadsDto);
@@ -49,4 +52,10 @@ export class WarloadsController {
     //     return this.WarloadsService.getAllWarloads(filterDto);
     // }
 
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file'))
+    uploadFile(@UploadedFile() file: Express.Multer.File) {
+        console.log(file);
+    }
+    
 }
