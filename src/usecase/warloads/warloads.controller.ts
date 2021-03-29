@@ -13,36 +13,45 @@ import { FileInterceptor } from '@nestjs/platform-express/multer';
 export class WarloadsController {
     constructor(private WarloadsService: WarloadsService) {}
 
-    @Put('/:id')
+    @Put('/:warloads_id')
     updateWarloadsName(
-        @Param('id', ParseIntPipe) id: number,
+        @Param('warloads_id', ParseIntPipe) warloads_id: number,
         @Body('name') name:string,
     ): Promise<Warloads> {
-        return this.WarloadsService.updateWarloadsName(id,name);
+        return this.WarloadsService.updateWarloadsName(warloads_id,name);
     }
 
-    @Get('/:id')
+    @Get('/:warloads_id')
     getWarloadsById(
-        @Param('id',ParseIntPipe) id: number
+        @Param('warloads_id',ParseIntPipe) warloads_id: number
     ): Promise<Warloads> {
-        return this.WarloadsService.getWarloadsById(id);
+        return this.WarloadsService.getWarloadsById(warloads_id);
     }
 
     @Post('/:kingdoms_id/warloads')
     @UsePipes(ValidationPipe)
     createWarloads(
-        @Param('kingdoms_id', ParseIntPipe) id: number,
+        @Param('kingdoms_id', ParseIntPipe) warloads_id: number,
         @Body() createWarloadsDto: CreateWarloadsDto
     ): Promise<Warloads> {
         return this.WarloadsService.createWarloads(createWarloadsDto);
     }
 
-    @Delete('/:id')
+    @Post('/warloads/:warloads_id/episodes/')
+    @UsePipes(ValidationPipe)
+    createEpisodes(
+        @Param('kingdoms_id', ParseIntPipe) warloads_id: number,
+        @Body() createWarloadsDto: CreateWarloadsDto
+    ): Promise<Warloads> {
+        return this.WarloadsService.createEpisodes(createWarloadsDto);
+    }    
+
+    @Delete('/:warloads_id')
     async deleteWarloadsById(
-        @Param('id', ParseIntPipe) id: number
+        @Param('warloads_id', ParseIntPipe) warloads_id: number
     ): Promise<Warloads["id"]> {
-        const Warload = await this.WarloadsService.deleteWarloads(id);
-        return Warload["id"];
+        const Warload = await this.WarloadsService.deleteWarloads(warloads_id);
+        return Warload["warloads_id"];
     }
 
     // @Get()
@@ -57,5 +66,5 @@ export class WarloadsController {
     uploadFile(@UploadedFile() file: Express.Multer.File) {
         console.log(file);
     }
-    
+
 }

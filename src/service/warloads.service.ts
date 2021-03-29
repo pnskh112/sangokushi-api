@@ -25,6 +25,10 @@ export class WarloadsService {
         return this.warloadsRepository.createWarloads(createWarloadsDto);
     }
 
+    async createEpisodes(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
+        return this.warloadsRepository.createWarloads(createWarloadsDto);
+    }
+
     async deleteWarloads(id: number): Promise<object> {
         const warload = await this.warloadsRepository.findOne(id);
         if (!warload.remove()) {
