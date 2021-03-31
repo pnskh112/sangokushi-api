@@ -7,11 +7,15 @@ import { CreateWarloadsDto } from 'src/dto/Warloads/create-Warloads.dto';
 import { GetWarloadsFilterDto } from 'src/dto/Warloads/get-Warloads-filter.dto';
 import { UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
+import { CreateEpisodesDto } from 'src/dto/episodes/create-episodes.dto';
+import { Episodes } from 'src/domain/entity/Episodes.entity';
 
 
 @Controller('kingdoms')
 export class WarloadsController {
-    constructor(private WarloadsService: WarloadsService) {}
+    constructor(
+        private WarloadsService: WarloadsService,
+        ) {}
 
     @Put('/:warloads_id')
     updateWarloadsName(
@@ -41,9 +45,9 @@ export class WarloadsController {
     @UsePipes(ValidationPipe)
     createEpisodes(
         @Param('kingdoms_id', ParseIntPipe) warloads_id: number,
-        @Body() createWarloadsDto: CreateWarloadsDto
-    ): Promise<Warloads> {
-        return this.WarloadsService.createEpisodes(createWarloadsDto);
+        @Body() createEpisodesDto: CreateEpisodesDto
+    ): Promise<Episodes> {
+        return this.WarloadsService.createEpisodes(createEpisodesDto);
     }    
 
     @Delete('/:warloads_id')

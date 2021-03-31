@@ -5,12 +5,16 @@ import { NotFoundException } from "src/domain/exception/notFound.exception";
 import { CreateWarloadsDto } from "src/dto/Warloads/create-Warloads.dto";
 import { GetWarloadsFilterDto } from "src/dto/Warloads/get-Warloads-filter.dto";
 import { Warloads } from "src/domain/entity/Warloads.entity";
+import { CreateEpisodesDto } from "src/dto/episodes/create-episodes.dto";
+import { Episodes } from "src/domain/entity/Episodes.entity";
+import { EpisodesRepository } from '../domain/repository/episodes.repository';
 
 @Injectable()
 export class WarloadsService {
     constructor(
         @InjectRepository(WarloadsRepository)
         private warloadsRepository: WarloadsRepository,
+        private episodesRepository: EpisodesRepository,
     ) {}
 
     async getWarloadsById(id: number): Promise<Warloads> {
@@ -25,8 +29,8 @@ export class WarloadsService {
         return this.warloadsRepository.createWarloads(createWarloadsDto);
     }
 
-    async createEpisodes(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
-        return this.warloadsRepository.createWarloads(createWarloadsDto);
+    async createEpisodes(createEpisodesDto: CreateEpisodesDto): Promise<Episodes> {
+        return this.episodesRepository.createEpisodes(createEpisodesDto);
     }
 
     async deleteWarloads(id: number): Promise<object> {
