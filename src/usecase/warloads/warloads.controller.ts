@@ -11,7 +11,7 @@ import { CreateEpisodesDto } from 'src/dto/episodes/create-episodes.dto';
 import { Episodes } from 'src/domain/entity/Episodes.entity';
 
 
-@Controller('kingdoms')
+@Controller()
 export class WarloadsController {
     constructor(
         private WarloadsService: WarloadsService,
@@ -44,7 +44,7 @@ export class WarloadsController {
     @Post('/warloads/:warloads_id/episodes/')
     @UsePipes(ValidationPipe)
     createEpisodes(
-        @Param('kingdoms_id', ParseIntPipe) warloads_id: number,
+        @Param('warloads_id', ParseIntPipe) warloads_id: number,
         @Body() createEpisodesDto: CreateEpisodesDto
     ): Promise<Episodes> {
         return this.WarloadsService.createEpisodes(createEpisodesDto);
