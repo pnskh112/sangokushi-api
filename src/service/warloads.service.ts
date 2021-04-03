@@ -6,7 +6,7 @@ import { CreateWarloadsDto } from "src/dto/Warloads/create-Warloads.dto";
 import { GetWarloadsFilterDto } from "src/dto/Warloads/get-Warloads-filter.dto";
 import { Warloads } from "src/domain/entity/Warloads.entity";
 import { CreateEpisodesDto } from "src/dto/episodes/create-episodes.dto";
-import { Episodes } from "src/domain/entity/Episodes.entity";
+import { Episodes } from "src/domain/entity/episodes.entity";
 import { EpisodesRepository } from '../domain/repository/episodes.repository';
 
 @Injectable()

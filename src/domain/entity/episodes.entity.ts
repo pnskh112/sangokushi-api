@@ -1,5 +1,4 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Arm } from "./arms.entity";
 
 @Entity()
 export class Episodes extends BaseEntity {
@@ -11,13 +10,13 @@ export class Episodes extends BaseEntity {
     @Column()
     warsId: number;
 
-    @Column()
+    @Column({nullable : true})
     warloadsId: number;
 
-    @Column()
+    @Column({nullable : true})
     title: string;
 
-    @Column()
+    @Column({nullable : true})
     episode: string;
 
     // async getEpisodes(getParams): Promise<Episodes[]> {
@@ -41,19 +40,34 @@ export class Episodes extends BaseEntity {
             episode,
         } = createParam;
         const episodes = await Episodes.query(
-            `
-                INSERT INTO Episodes
-                    ("warsId","warloadsId","title","episode")
-                VALUES
-                    ($1,$2,$3,$4)
-                RETURNING * AS newEpisode;
-            `,
-            [
-                warsId,
-                warloadsId,
-                title,
-                episode,
-            ],
+            // `
+            //     INSERT INTO episodes
+            //         ("warsId","warloadsId","title","episode")
+            //     VALUES
+            //         ($1,$2,$3,$4)
+            //     RETURNING warsId","warloadsId","title","episode" AS newEpisode;
+            // `,
+            // [
+                
+            //     warsId,
+            //     warloadsId,
+            //     title,
+            //     episode,
+            // ],
+        `
+            INSERT INTO episodes
+                ("warsId","warloadsId","title","episode")
+            VALUES
+                ($1,$2,$3,$4)
+            RETURNING "warsId" AS newEpisode;
+        `,
+        [
+            warsId,
+            warloadsId,
+            title,
+            episode,
+        ],
+
         );
         return episodes[0];
     }

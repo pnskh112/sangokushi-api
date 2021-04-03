@@ -2,15 +2,15 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateEpisodesDto {
 
-    id: number;
+    id: number | null;
 
-    warsId: number;
+    warsId: number | null;
 
-    warloadsId: number;
+    warloadsId: number | null;
 
     /*エピソードタイトル*/
-    title: string;
+    title: string | null;
 
     /*エピソード*/
-    episode: string;
+    episode: string | null;
 }

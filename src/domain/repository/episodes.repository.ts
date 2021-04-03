@@ -12,9 +12,8 @@ export class EpisodesRepository extends Repository<Episodes> {
     //     return Episodes;
     // }
 
-
     async createEpisodes(createEpisodesDto: CreateEpisodesDto): Promise<Episodes> {
-        const { 
+        const {
             warsId,
             warloadsId,
             title,
