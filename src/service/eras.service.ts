@@ -8,13 +8,16 @@ import { Warloads } from "src/domain/entity/Warloads.entity";
 import { CreateEpisodesDto } from "src/dto/episodes/create-episodes.dto";
 import { Episodes } from "src/domain/entity/episodes.entity";
 import { EpisodesRepository } from '../domain/repository/episodes.repository';
+import { CreateErasDto } from "src/dto/warloads/create-eras.dto";
+import { Era } from "src/domain/entity/eras.entity";
+import { ErasRepository } from "src/domain/repository/eras.repository";
 
 @Injectable()
 export class ErasService {
     constructor(
         @InjectRepository(WarloadsRepository)
         private warloadsRepository: WarloadsRepository,
-        private episodesRepository: EpisodesRepository,
+        private erasRepository: ErasRepository,
     ) {}
 
     async getWarloadsById(id: number): Promise<Warloads> {
@@ -25,30 +28,8 @@ export class ErasService {
         return found;
     }
 
-    async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
-        return this.warloadsRepository.createWarloads(createWarloadsDto);
+    async createEras(createErasDto: CreateErasDto): Promise<Era> {
+        return this.erasRepository.createEras(createErasDto);
     }
 
-    async createEpisodes(createEpisodesDto: CreateEpisodesDto): Promise<Episodes> {
-        return this.episodesRepository.createEpisodes(createEpisodesDto);
-    }
-
-    async deleteWarloads(id: number): Promise<object> {
-        const warload = await this.warloadsRepository.findOne(id);
-        if (!warload.remove()) {
-            throw new NotFoundException(`Warload with ID ${id} not found`);
-        };
-        return warload;
-    }
-
-    async updateWarloadsName(id: number , name: string) {
-        const warload = await this.getWarloadsById(id);
-        warload.name = name;
-        warload.save();
-        return warload;
-    }
-
-    // getAllWarloads(filterDto: GetWarloadsFilterDto): Promise<Warloads[]> {
-    //     return this.warloadsRepository.getWarloads(filterDto); 
-    // }
 }

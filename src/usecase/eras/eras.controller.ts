@@ -2,6 +2,8 @@ import { Body, Delete, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } f
 import { UsePipes } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
 import { Warloads } from 'src/domain/entity/Warloads.entity';
+import { Era } from 'src/domain/entity/Eras.entity';
+import { ErasService } from 'src/service/Eras.service';
 import { WarloadsService } from 'src/service/Warloads.service';
 import { CreateWarloadsDto } from 'src/dto/Warloads/create-Warloads.dto';
 import { GetWarloadsFilterDto } from 'src/dto/Warloads/get-Warloads-filter.dto';
@@ -9,12 +11,14 @@ import { UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 import { CreateEpisodesDto } from 'src/dto/episodes/create-episodes.dto';
 import { Episodes } from 'src/domain/entity/Episodes.entity';
+import { CreateErasDto } from 'src/dto/warloads/create-eras.dto';
 
 
 @Controller()
 export class ErasController {
     constructor(
         private WarloadsService: WarloadsService,
+        private ErasService: ErasService,
         ) {}
 
     @Put('/:warloads_id')
@@ -32,13 +36,13 @@ export class ErasController {
         return this.WarloadsService.getWarloadsById(warloads_id);
     }
 
-    @Post('/:kingdoms_id/warloads')
+    @Post('/kingdoms/:kingdoms_id/eras')
     @UsePipes(ValidationPipe)
-    createWarloads(
-        @Param('kingdoms_id', ParseIntPipe) warloads_id: number,
-        @Body() createWarloadsDto: CreateWarloadsDto
-    ): Promise<Warloads> {
-        return this.WarloadsService.createWarloads(createWarloadsDto);
+    createEras(
+        @Param('kingdoms_id', ParseIntPipe) kingdoms_id: number,
+        @Body() createErasDto: CreateErasDto
+    ): Promise<Era> {
+        return this.ErasService.createEras(createErasDto);
     }
 
     @Post('/warloads/:warloads_id/episodes/')
