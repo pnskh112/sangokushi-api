@@ -9,7 +9,7 @@ import { CreateEpisodesDto } from "src/dto/episodes/create-episodes.dto";
 import { Episodes } from "src/domain/entity/episodes.entity";
 import { EpisodesRepository } from '../domain/repository/episodes.repository';
 import { CreateErasDto } from "src/dto/warloads/create-eras.dto";
-import { Era } from "src/domain/entity/eras.entity";
+import { Eras } from "src/domain/entity/eras.entity";
 import { ErasRepository } from "src/domain/repository/eras.repository";
 
 @Injectable()
@@ -28,7 +28,7 @@ export class ErasService {
         return found;
     }
 
-    async createEras(createErasDto: CreateErasDto): Promise<Era> {
+    async createEras(createErasDto: CreateErasDto): Promise<Eras> {
         return this.erasRepository.createEras(createErasDto);
     }
 

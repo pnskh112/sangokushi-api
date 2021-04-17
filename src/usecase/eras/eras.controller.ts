@@ -2,7 +2,7 @@ import { Body, Delete, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } f
 import { UsePipes } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
 import { Warloads } from 'src/domain/entity/Warloads.entity';
-import { Era } from 'src/domain/entity/Eras.entity';
+import { Eras } from 'src/domain/entity/Eras.entity';
 import { ErasService } from 'src/service/Eras.service';
 import { WarloadsService } from 'src/service/Warloads.service';
 import { CreateWarloadsDto } from 'src/dto/Warloads/create-Warloads.dto';
@@ -41,7 +41,7 @@ export class ErasController {
     createEras(
         @Param('kingdoms_id', ParseIntPipe) kingdoms_id: number,
         @Body() createErasDto: CreateErasDto
-    ): Promise<Era> {
+    ): Promise<Eras> {
         return this.ErasService.createEras(createErasDto);
     }
 

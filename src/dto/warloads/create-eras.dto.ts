@@ -5,22 +5,14 @@ export class CreateErasDto {
 
     id: number;
 
-    @IsNotEmpty()
+    kingdoms_id: number | null;
+
     name: string;
 
-    @IsNotEmpty()
-    azana: string;
+    description: string;
 
-    /*人物像*/
-    statue: string;
+    start_year: number;
 
-    
-    hobby: string;
-
-    
-    fromTo : string;
-
-
-    arms: any[];
+    end_year: number;
 
 }

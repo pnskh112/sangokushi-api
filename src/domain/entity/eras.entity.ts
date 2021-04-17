@@ -1,17 +1,25 @@
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Era extends BaseEntity {
+export class Eras extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    kingdoms_id: number | null;
 
     @Column()
     name: string;
 
     @Column()
-    text: string;
+    description: string;
+
+    @Column()
+    start_year: number;
+
+    @Column()
+    end_year: number;
 
     // async getArms(getParams): Promise<Arm[]> {
     //     const {id, name } = getParams;
@@ -26,19 +34,24 @@ export class Era extends BaseEntity {
     //     return arms;
     // }
 
-    async createArms(createParam): Promise<Era> {
-        const { warloadsId,name,text } = createParam.arm[0];
-        const arms = await Era.query(
+    async createEras(createParam): Promise<Eras> {
+        const {
+            kingdoms_id,
+            name,
+            description,
+            start_year,
+            end_year
+        } = createParam;
+        const eras = await Eras.query(
             `
                 INSERT INTO Eras
-                    ("warloadsId","name","text")
+                    ("kingdoms_id","name","description","start_year","end_year")
                 VALUES
-                    ($1,$2,$3)
+                    ($1,$2,$3,$4,$5)
                 RETURNING *;
             `,
-            [warloadsId,name,text],
+            [kingdoms_id,name,description,start_year,end_year],
         );
-        console.log("createArms end",arms[0]);
-        return arms[0];
+        return eras[0];
     }
 }
