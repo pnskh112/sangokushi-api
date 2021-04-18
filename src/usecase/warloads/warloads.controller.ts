@@ -32,6 +32,13 @@ export class WarloadsController {
         return this.WarloadsService.getWarloadsById(warloads_id);
     }
 
+    @Get('/kingdoms/:kingdoms_id/warloads')
+    getWarloads(
+        @Param('kingdoms_id',ParseIntPipe) kingdoms_id: number
+    ): Promise<Warloads[]> {
+        return this.WarloadsService.getWarloads();
+    }
+
     @Post('/kingdoms/:kingdoms_id/warloads')
     @UsePipes(ValidationPipe)
     createWarloads(
@@ -48,7 +55,7 @@ export class WarloadsController {
         @Body() createEpisodesDto: CreateEpisodesDto
     ): Promise<Episodes> {
         return this.WarloadsService.createEpisodes(createEpisodesDto);
-    }    
+    }
 
     @Delete('/:warloads_id')
     async deleteWarloadsById(
