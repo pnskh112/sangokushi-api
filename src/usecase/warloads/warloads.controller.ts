@@ -32,7 +32,7 @@ export class WarloadsController {
         return this.WarloadsService.getWarloadsById(warloads_id);
     }
 
-    @Post('/:kingdoms_id/warloads')
+    @Post('/kingdoms/:kingdoms_id/warloads')
     @UsePipes(ValidationPipe)
     createWarloads(
         @Param('kingdoms_id', ParseIntPipe) warloads_id: number,
