@@ -34,9 +34,10 @@ export class WarloadsController {
 
     @Get('/kingdoms/:kingdoms_id/warloads')
     getWarloads(
-        @Param('kingdoms_id',ParseIntPipe) kingdoms_id: number
+        @Param('kingdoms_id',ParseIntPipe) kingdoms_id: number,
+        @Body('page') page: string,
     ): Promise<Warloads[]> {
-        return this.WarloadsService.getWarloads();
+        return this.WarloadsService.getWarloads(page);
     }
 
     @Post('/kingdoms/:kingdoms_id/warloads')

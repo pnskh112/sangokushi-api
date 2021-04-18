@@ -28,21 +28,29 @@ export class Warloads extends BaseEntity {
     @OneToMany(type => Arm, arm => arm.warloadsId)
     arms: Arm[];
 
-    async getWarloads(): Promise<Warloads[]> {
+    async getWarloads(page: number): Promise<Warloads[]> {
+        console.log("entity:getWarloads");
+        console.log("page",page);
+        const output = page + 11;
+        console.log("output",output);
         const warloads = await Warloads.query(
             `
             SELECT w."id",
-                w."name",
-                w."azana",
-                w."statue",
-                w."hobby",
-                w."fromTo"
-        FROM Warloads w
-        JOIN arm a
-            ON w.id = a."warloadsId"
-        WHERE 0=0
-        LIMIT 10
-            `
+                   w."name",
+                   w."azana",
+                   w."statue",
+                   w."hobby",
+                   w."fromTo"
+              FROM Warloads w
+              JOIN arm a
+                ON w.id = a."warloadsId"
+             WHERE 0=0
+             LIMIT 10
+            OFFSET $1
+            `,
+            [
+                (10 * page) + 1
+            ]
         );
         return warloads;
     }
