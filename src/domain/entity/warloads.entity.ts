@@ -28,18 +28,32 @@ export class Warloads extends BaseEntity {
     @OneToMany(type => Arm, arm => arm.warloadsId)
     arms: Arm[];
 
-    // async getWarloads(getParams): Promise<Warloads[]> {
-    //     const { id, name } = getParams;
-    //     const query = Warloads.createQueryBuilder('Warloads');
-    //     if (id) {
-    //         query.andWhere('Warloads.id = :id', { id });
-    //     }
-    //     if (name) {
-    //         query.andWhere('Warloads.name LIKE :name', { name: `%${name}%` });
-    //     }
-    //     const warloads = await query.getMany();
-    //     return warloads;
-    // }
+    async getWarloads(page: number): Promise<Warloads[]> {
+        console.log("entity:getWarloads");
+        console.log("page",page);
+        const output = page + 11;
+        console.log("output",output);
+        const warloads = await Warloads.query(
+            `
+            SELECT w."id",
+                   w."name",
+                   w."azana",
+                   w."statue",
+                   w."hobby",
+                   w."fromTo"
+              FROM Warloads w
+              JOIN arm a
+                ON w.id = a."warloadsId"
+             WHERE 0=0
+             LIMIT 10
+            OFFSET $1
+            `,
+            [
+                (10 * page) + 1
+            ]
+        );
+        return warloads;
+    }
 
     async createWarloads(createParam): Promise<Warloads> {
         const {

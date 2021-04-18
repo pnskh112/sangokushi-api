@@ -25,6 +25,16 @@ export class WarloadsService {
         return found;
     }
 
+    async getWarloads(page: string): Promise<Warloads[]> {
+        console.log("service:getWarloads");
+        console.log("page",page);
+        const warloads = await this.warloadsRepository.getWarloads(page);
+        if (!warloads) {
+            throw new NotFoundException(`Warload not found`)
+        }
+        return warloads;
+    }
+
     async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
         return this.warloadsRepository.createWarloads(createWarloadsDto);
     }

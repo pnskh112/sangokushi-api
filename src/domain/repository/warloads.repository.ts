@@ -7,11 +7,13 @@ import { Warloads } from '../entity/Warloads.entity';
 @EntityRepository(Warloads)
 export class WarloadsRepository extends Repository<Warloads> {
 
-    // async getWarloads(filterDto: GetWarloadsFilterDto): Promise<Warloads[]> {
-    //     const { id, name } = filterDto;
-    //     const warloads = await new Warloads().getWarloads({id, name });
-    //     return warloads;
-    // }
+    async getWarloads(page: string): Promise<Warloads[]> {
+        console.log("repository:getWarloads");
+        console.log("page",page);
+        const numPage = Number(page);
+        const warloads = await new Warloads().getWarloads(numPage);
+        return warloads;
+    }
 
     async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
         const { 
