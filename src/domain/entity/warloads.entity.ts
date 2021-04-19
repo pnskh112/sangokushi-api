@@ -49,7 +49,7 @@ export class Warloads extends BaseEntity {
             OFFSET $1
             `,
             [
-                (10 * page) + 1
+                (10 * (page - 1) ) + 1
             ]
         );
         return warloads;
