@@ -8,15 +8,13 @@ import { Warloads } from '../entity/Warloads.entity';
 export class WarloadsRepository extends Repository<Warloads> {
 
     async getWarloads(page: string): Promise<Warloads[]> {
-        console.log("repository:getWarloads");
-        console.log("page",page);
         const numPage = Number(page);
         const warloads = await new Warloads().getWarloads(numPage);
         return warloads;
     }
 
     async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
-        const { 
+        const {
             name,
             azana,
             statue,

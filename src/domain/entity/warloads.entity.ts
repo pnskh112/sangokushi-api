@@ -42,14 +42,15 @@ export class Warloads extends BaseEntity {
                    w."hobby",
                    w."fromTo"
               FROM Warloads w
-              JOIN arm a
-                ON w.id = a."warloadsId"
+              /*JOIN arm a
+                ON w.id = a."warloadsId"*/
              WHERE 0=0
+          ORDER BY w."id"
              LIMIT 10
             OFFSET $1
             `,
             [
-                (10 * (page - 1) ) + 1
+                10 * (page - 1)
             ]
         );
         return warloads;
