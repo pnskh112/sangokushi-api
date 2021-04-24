@@ -1,6 +1,13 @@
+// import { Found } from "src/dto/warloads/class/found";
 import { GetWarloadsFilterDto } from "src/dto/Warloads/get-Warloads-filter.dto";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Arm } from "./arms.entity";
+
+
+// export interface GetWarloads {
+//     data: Warloads[];
+//     found: Found;
+// }
 
 @Entity()
 export class Warloads extends BaseEntity {
@@ -29,10 +36,7 @@ export class Warloads extends BaseEntity {
     arms: Arm[];
 
     async getWarloads(page: number): Promise<Warloads[]> {
-        console.log("entity:getWarloads");
-        console.log("page",page);
-        const output = page + 11;
-        console.log("output",output);
+        console.log("1");
         const warloads = await Warloads.query(
             `
             SELECT w."id",
@@ -42,17 +46,32 @@ export class Warloads extends BaseEntity {
                    w."hobby",
                    w."fromTo"
               FROM Warloads w
-              JOIN arm a
-                ON w.id = a."warloadsId"
+              /*JOIN arm a
+                ON w.id = a."warloadsId"*/
              WHERE 0=0
+          ORDER BY w."id"
              LIMIT 10
             OFFSET $1
             `,
             [
-                (10 * page) + 1
+                10 * (page - 1)
             ]
         );
         return warloads;
+    }
+
+    async getWarloadsCount(): Promise<string> {
+        console.log("2");
+        const warloadsCount = await Warloads.query(
+            `
+            SELECT COUNT(1)
+              FROM Warloads w
+              /*JOIN arm a
+                ON w.id = a."warloadsId"*/
+             WHERE 0=0
+            `
+        );
+        return JSON.parse(JSON.stringify(warloadsCount))[0].count;
     }
 
     async createWarloads(createParam): Promise<Warloads> {
