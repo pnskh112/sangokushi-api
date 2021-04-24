@@ -8,6 +8,7 @@ import { Warloads } from "src/domain/entity/Warloads.entity";
 import { CreateEpisodesDto } from "src/dto/episodes/create-episodes.dto";
 import { Episodes } from "src/domain/entity/episodes.entity";
 import { EpisodesRepository } from '../domain/repository/episodes.repository';
+import { GetWarloadsClass } from '../dto/warloads/class/getWarloads.class';
 
 @Injectable()
 export class WarloadsService {
@@ -26,13 +27,31 @@ export class WarloadsService {
     }
 
     async getWarloads(page: string): Promise<Warloads[]> {
-        console.log("service:getWarloads");
-        console.log("page",page);
         const warloads = await this.warloadsRepository.getWarloads(page);
         if (!warloads) {
             throw new NotFoundException(`Warload not found`)
         }
         return warloads;
+    }
+
+    async find(page: string): Promise<GetWarloadsClass> {
+        const result = await new WarloadsRepository().getWarloads(
+            page,
+        );
+        if (!result) {
+            throw new NotFoundException(`Warload not found`)
+        }
+        const getWarloadsCount = await new WarloadsRepository().getWarloadsCount(
+            page,
+        );
+        console.log(getWarloadsCount);
+        console.log(getWarloadsCount[0]);
+        return new GetWarloadsClass({
+            found: getWarloadsCount,
+            currentPage: 1,
+            lastPage: 1,
+            data: result,
+        });
     }
 
     async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {

@@ -9,6 +9,7 @@ import { UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 import { CreateEpisodesDto } from 'src/dto/episodes/create-episodes.dto';
 import { Episodes } from 'src/domain/entity/Episodes.entity';
+import { GetWarloadsClass } from 'src/dto/warloads/class/getWarloads.class';
 
 
 @Controller()
@@ -36,8 +37,8 @@ export class WarloadsController {
     getWarloads(
         @Param('kingdoms_id',ParseIntPipe) kingdoms_id: number,
         @Body('page') page: string,
-    ): Promise<Warloads[]> {
-        return this.WarloadsService.getWarloads(page);
+    ): Promise<GetWarloadsClass> {
+        return this.WarloadsService.find(page);
     }
 
     @Post('/kingdoms/:kingdoms_id/warloads')

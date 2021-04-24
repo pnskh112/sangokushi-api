@@ -13,6 +13,13 @@ export class WarloadsRepository extends Repository<Warloads> {
         return warloads;
     }
 
+    async getWarloadsCount(page: string): Promise<string> {
+        const numPage = Number(page);
+        const warloadsCount = await new Warloads().getWarloadsCount();
+        console.log("warloadsCount",warloadsCount);
+        return warloadsCount;
+    }
+
     async createWarloads(createWarloadsDto: CreateWarloadsDto): Promise<Warloads> {
         const {
             name,
