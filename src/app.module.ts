@@ -5,6 +5,7 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { KingdomsModule } from './module/kingdoms.module';
 import { WarloadsModule } from './module/warloads.module';
 import { ErasModule } from './module/eras.module';
+import { FileUploadersModule } from './module/fileUploders.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ErasModule } from './module/eras.module';
     KingdomsModule,
     WarloadsModule,
     ErasModule,
+    FileUploadersModule,
   ],
 })
 export class AppModule {}
