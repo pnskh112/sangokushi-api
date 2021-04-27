@@ -74,10 +74,10 @@ export class WarloadsController {
     //     return this.WarloadsService.getAllWarloads(filterDto);
     // }
 
-    @Post('upload')
-    @UseInterceptors(FileInterceptor('file'))
-    uploadFile(@UploadedFile() file: Express.Multer.File) {
-        console.log(file);
-    }
+    // @Post('upload')
+    // @UseInterceptors(FileInterceptor('file'))
+    // uploadFile(@UploadedFile() file: Express.Multer.File) {
+    //     console.log(file);
+    // }
 
 }
