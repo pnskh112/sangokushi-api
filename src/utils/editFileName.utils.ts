@@ -1,8 +1,7 @@
 import { extname } from "path";
 
-export const editFileName = (req, file, callback) => {
+export const EditFileName = (req, file, callback) => {
   const name = file.originalname.split('.')[0];
-  console.log("name",name);
   const fileExtName = extname(file.originalname);
   const randomName = Array(4)
     .fill(null)
